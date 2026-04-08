@@ -1,13 +1,10 @@
 
 
 
-## Appendices
 
-### Acronyms and Abbreviations
-### Definitions
-### Design Principles
 
-                                                  Academic Life and Career Simulation Game
+Academic Life and Career Simulation Game
+
 
 # Change History
 
@@ -72,12 +69,15 @@ Platform Independence: Running as a standalone Python application on any desktop
 Constraint: The system must run locally and handle state transitions (Roaming to Quiz) without losing data.
 
 ## 5. Logical Architecture
-// class diagram gelecek [Alt text](PHOTO-2026-04-08-02-21-48-1.jpg)
+
+![Class Diagram](class%20diagram.jpg)
 
 This view focuses on the functional requirements and object-oriented design of the simulation. As shown in the class diagram, the Game class serves as the central orchestrator, managing composition-based relationships with entities like Player, Quiz, and NPC. This structure ensures that all game logic and data persistence (via SaveData) are synchronized through a single controller.
 
 ## 6. Process Architecture
-// state machine diagram ve sequence diyagram gelecek
+
+![State Machine Diagram](state%20machine%20diagram.png)
+![Sequence Diagram](sequence%20diagram.jpg)
 
 The simulation's runtime behavior is managed by a Finite State Machine (FSM) pattern. This architecture ensures that player movement and game-world updates are synchronized with user interactions.
 
@@ -89,7 +89,7 @@ Time Management: The advance_time() process runs as a background service that up
 
 ## 7. Development Architecture
 
-// component diagram eklenecek
+![Component Diagram](component%20diagram.png)
 
 The system is built using a modular component-based architecture to separate game-state management from graphical rendering.
 
@@ -100,7 +100,8 @@ Logic Module: Encapsulates the academic success formulas and student stat calcul
 External Dependencies: Utilizes the Pygame library for hardware abstraction (input/output) and the JSON module for data serialization.
 
 ## 8. Physical Architecture
-// deployment diagram gelecek
+
+![Deployment Diagram](deployment%20diagram.png)
 
 The simulation is designed as a standalone desktop application, ensuring a zero-dependency environment for the end-user.
 
@@ -111,9 +112,10 @@ Storage Layer: All persistence data is handled locally via the campus_life_save.
 Deployment: The software is delivered as a Python-based executable or script, requiring only a compatible Python runtime and the Pygame library on the host machine.
 
 
-
 ## 9. Scenarios
-// use case diagram gelecek 
+
+![Use Case Diagram](use%20case%20diagram.png)
+
 This view illustrates the core functionalities available to the user within the simulation environment.
 
 Academic Journey: The player interacts with the school to take exams, where outcomes are determined by intelligence and study hours.
