@@ -712,8 +712,15 @@ class Game:
                 return
 
         self.dialog.set("You have no gifts to give.")
-
     def update(self):
+
+    keys = pygame.key.get_pressed()
+    self.time_counter += 1
+
+    if self.time_counter >= 300:
+        self.time_counter = 0
+        self.advance_time(1)
+
         keys = pygame.key.get_pressed()
     self.time_counter += 1
 
@@ -723,6 +730,7 @@ class Game:
 
     if keys[pygame.K_s]:
         self.study()
+
 
     if not self.quiz.active and not self.story.active and not self.show_quests and not self.show_rels:
         self.player.update(keys, self.blocked)
@@ -734,6 +742,7 @@ class Game:
         if eff.life <= 0:
             self.effects.remove(eff)
 
+    
     def draw_tree(self, surf, wx, wy, cam_x, cam_y):
         px, py = wx - cam_x, wy - cam_y
         pygame.draw.rect(surf, TRUNK, (px + 10, py + 24, 12, 18))
