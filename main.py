@@ -560,6 +560,9 @@ class Game:
             self.hour -= 24
             self.day += 1
             self.exam_ready = True
+            self.save()
+            self.dialog.set("Game auto-saved.")
+            
         if self.hour >= 23 or self.hour < 7:
             self.dialog.set("It's late. Better go home soon.")
 
@@ -604,11 +607,14 @@ class Game:
         if t == "intel":
             return self.intel
         return 0
+    def is_quest_completed(self, q):
+        return self.get_quest_progress(q) >= q["target"]
 
     def interact_npc(self, npc):
         self.talk_count += 1
         npc.friendship = clamp(npc.friendship + 1, 0, 100)
         self.dialog.set(npc.talk())
+        # NPC interaction handled
 
         if npc.name in NPC_DIALOGUES:
             idx = NPC_INDEX[npc.name]
@@ -875,11 +881,13 @@ class Game:
         y = rect.y + 80
         for q in QUESTS:
             prog = self.get_quest_progress(q)
-            done = prog >= q["target"]
+            done = self.is_quest_completed(q)
             color = GREEN if done else BLACK
             draw_text(surf, q["title"], FONT, color, rect.x + 24, y)
             draw_text(surf, q["desc"], SMALL, BLACK, rect.x + 24, y + 24)
             draw_text(surf, f"{prog}/{q['target']}", SMALL, color, rect.right - 90, y + 10)
+            if done:
+                draw_text(surf, "Completed!", SMALL, GREEN, rect.right - 160, y + 10)
             y += 72
 
         draw_text(surf, "TAB to close", SMALL, BLACK, rect.centerx, rect.bottom - 24, True)
