@@ -604,6 +604,8 @@ class Game:
         if t == "intel":
             return self.intel
         return 0
+    def is_quest_completed(self, q):
+        return self.get_quest_progress(q) >= q["target"]
 
     def interact_npc(self, npc):
         self.talk_count += 1
@@ -877,11 +879,13 @@ class Game:
         y = rect.y + 80
         for q in QUESTS:
             prog = self.get_quest_progress(q)
-            done = prog >= q["target"]
+            done = self.is_quest_completed(q)
             color = GREEN if done else BLACK
             draw_text(surf, q["title"], FONT, color, rect.x + 24, y)
             draw_text(surf, q["desc"], SMALL, BLACK, rect.x + 24, y + 24)
             draw_text(surf, f"{prog}/{q['target']}", SMALL, color, rect.right - 90, y + 10)
+            if done:
+                draw_text(surf, "Completed!", SMALL, GREEN, rect.right - 160, y + 10)
             y += 72
 
         draw_text(surf, "TAB to close", SMALL, BLACK, rect.centerx, rect.bottom - 24, True)
