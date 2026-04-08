@@ -887,21 +887,26 @@ class Game:
 
         draw_text(surf, "Q to close", SMALL, BLACK, rect.centerx, rect.bottom - 24, True)
 
-    def draw(self, surf):
-        cam_x = clamp(int(self.player.x - WIDTH // 2), 0, WORLD_W * TILE - WIDTH)
-        cam_y = clamp(int(self.player.y - HEIGHT // 2), 0, WORLD_H * TILE - HEIGHT)
+   def draw(self, surf):
+    cam_x = clamp(int(self.player.x - WIDTH // 2), 0, WORLD_W * TILE - WIDTH)
+    cam_y = clamp(int(self.player.y - HEIGHT // 2), 0, WORLD_H * TILE - HEIGHT)
 
-        self.draw_world(surf, cam_x, cam_y)
-        self.draw_ui(surf)
+    self.draw_world(surf, cam_x, cam_y)
+    self.draw_ui(surf)
 
-        if self.quiz.active:
-            self.quiz.draw(surf)
+    if self.hour >= 18 or self.hour < 6:
+        overlay = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
+        overlay.fill((20, 30, 60, 70))
+        surf.blit(overlay, (0, 0))
 
-        self.draw_quests_panel(surf)
-        self.draw_relationships_panel(surf)
+    if self.quiz.active:
+        self.quiz.draw(surf)
 
-        if self.story.active:
-            self.story.draw(surf)
+    self.draw_quests_panel(surf)
+    self.draw_relationships_panel(surf)
+
+    if self.story.active:
+        self.story.draw(surf)
 
 
 def main():
