@@ -436,6 +436,7 @@ class Game:
         self.work_done = 0
         self.home_used = 0
         self.talk_count = 0
+        self.time_counter = 0
 
         self.buildings = [
             Building(pygame.Rect(14 * TILE, 10 * TILE, 6 * TILE, 5 * TILE), HOME_ROOF, "HOME", "home"),
@@ -693,7 +694,13 @@ class Game:
         self.dialog.set("You have no gifts to give.")
 
     def update(self):
-        keys = pygame.key.get_pressed()
+        keys = pygame.key.get_pressed()  
+        self.time_counter += 1
+
+if self.time_counter >= 300:
+    self.time_counter = 0
+    self.advance_time(1)
+
         if not self.quiz.active and not self.story.active and not self.show_quests and not self.show_rels:
             self.player.update(keys, self.blocked)
 
