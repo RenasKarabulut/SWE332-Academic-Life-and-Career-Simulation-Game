@@ -148,7 +148,7 @@ class DialogueBox:
         rect = pygame.Rect(12, HEIGHT - 96, WIDTH - 24, 84)
         box(surf, rect, PANEL)
         draw_text(surf, self.text, FONT, BLACK, rect.x + 16, rect.y + 16)
-        draw_text(surf, "E interact | ENTER dialogue | F5 save | F9 load | TAB quests | Q relationships | G gift", SMALL, BLACK, rect.x + 16, rect.y + 50)
+        draw_text(surf, "E: Interact   ENTER: Next   TAB: Quests   Q: Relationships   G: Gift", SMALL, BLACK, rect.x + 16, rect.y + 50)
 
 
 class StoryUI:
@@ -862,7 +862,8 @@ class Game:
         box(surf, chip, PANEL_D)
         draw_text(surf, inv, SMALL, BLACK, chip.x + 8, chip.y + 4)
 
-        draw_text(surf, "Campus Life RPG", SMALL, BLACK, WIDTH - 140, 10)
+        draw_text(surf, "Campus Life RPG Dashboard", SMALL, BLACK, WIDTH - 220, 10)
+        draw_text(surf, "Player Status Panel", SMALL, BLACK, WIDTH - 220, 30)
 
         for i, eff in enumerate(self.effects[-4:]):
             draw_text(surf, eff.text, SMALL, eff.color, WIDTH - 180, 34 + i * 14)
@@ -889,7 +890,11 @@ class Game:
             draw_text(surf, q["desc"], SMALL, BLACK, rect.x + 24, y + 24)
             draw_text(surf, f"{prog}/{q['target']}", SMALL, color, rect.right - 90, y + 10)
             if done:
+<<<<<<< HEAD
                 draw_text(surf, "Completed!", SMALL, GREEN, rect.right - 160, y + 10)
+=======
+    draw_text(surf, "Done", SMALL, GREEN, rect.right - 150, y + 10)
+>>>>>>> cf88694 (updated dialogue system and UI)
             y += 72
 
         draw_text(surf, "TAB to close", SMALL, BLACK, rect.centerx, rect.bottom - 24, True)
@@ -908,8 +913,8 @@ class Game:
         y = rect.y + 90
         for n in self.npcs:
             draw_text(surf, n.name, FONT, BLACK, rect.x + 26, y)
-            bar_bg = pygame.Rect(rect.x + 140, y + 4, 300, 18)
-            bar_fg = pygame.Rect(rect.x + 140, y + 4, int(300 * (n.friendship / 100)), 18)
+           bar_bg = pygame.Rect(rect.x + 140, y + 4, 330, 20)
+          bar_fg = pygame.Rect(rect.x + 140, y + 4, int(330 * (n.friendship / 100)), 20)
             box(surf, bar_bg, PANEL_D, bw=2)
             pygame.draw.rect(surf, PURPLE, bar_fg)
             pygame.draw.rect(surf, BLACK, bar_fg, 2)
