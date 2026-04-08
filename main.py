@@ -424,6 +424,7 @@ class Game:
         self.money = 60
         self.intel = 40
         self.gpa = 2.0
+        self.study_hours = 0
 
         self.subjects = ["Math", "Physics", "English"]
         self.subject_index = 0
@@ -470,6 +471,25 @@ class Game:
                 "Did you save the game?"
             ], (92, 180, 130), "snack"),
         ]
+            def calculate_exam_result(self):
+    score = self.study_hours * 0.5 + self.intel * 0.5
+
+    if score >= 80:
+        self.gpa += 0.3
+        result = "Great result!"
+    elif score >= 50:
+        self.gpa += 0.1
+        result = "Passed."
+    else:
+        self.gpa -= 0.2
+        result = "Failed."
+
+    self.study_hours = 0
+    return result
+        def study(self):
+    self.study_hours += 5
+    self.energy -= 5
+    self.dialog.set("You studied. +5 knowledge")
 
         self.blocked = [self.pond]
         self.blocked += [b.rect for b in self.buildings]
@@ -694,22 +714,25 @@ class Game:
         self.dialog.set("You have no gifts to give.")
 
     def update(self):
-        keys = pygame.key.get_pressed()  
-        self.time_counter += 1
+        keys = pygame.key.get_pressed()
+    self.time_counter += 1
 
-if self.time_counter >= 300:
-    self.time_counter = 0
-    self.advance_time(1)
+    if self.time_counter >= 300:
+        self.time_counter = 0
+        self.advance_time(1)
 
-        if not self.quiz.active and not self.story.active and not self.show_quests and not self.show_rels:
-            self.player.update(keys, self.blocked)
+    if keys[pygame.K_s]:
+        self.study()
 
-        self.dialog.update()
+    if not self.quiz.active and not self.story.active and not self.show_quests and not self.show_rels:
+        self.player.update(keys, self.blocked)
 
-        for eff in self.effects[:]:
-            eff.update()
-            if eff.life <= 0:
-                self.effects.remove(eff)
+    self.dialog.update()
+
+    for eff in self.effects[:]:
+        eff.update()
+        if eff.life <= 0:
+            self.effects.remove(eff)
 
     def draw_tree(self, surf, wx, wy, cam_x, cam_y):
         px, py = wx - cam_x, wy - cam_y
