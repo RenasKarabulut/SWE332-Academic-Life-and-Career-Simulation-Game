@@ -72,8 +72,25 @@ Constraint: The system must run locally and handle state transitions (Roaming to
 
 ![Class Diagram](class%20diagram.jpg)
 
-This view focuses on the functional requirements and object-oriented design of the simulation. As shown in the class diagram, the Game class serves as the central orchestrator, managing composition-based relationships with entities like Player, Quiz, and NPC. This structure ensures that all game logic and data persistence (via SaveData) are synchronized through a single controller.
+The class diagram illustrates the internal structure of the system in more detail. The `Game` class acts as the core controller, coordinating all major components such as player management, quests, dialogues, and game progression.
 
+The `Player` class represents the main character controlled by the user and stores attributes such as position, inventory, and movement.
+
+The `Quiz` class manages the exam system, including question handling and scoring. It retrieves its data from the external `EXAM_BANK`, which is modeled as a dependency rather than a class.
+
+The `StoryUI` class is responsible for presenting narrative elements and managing story progression, allowing interaction with the user interface.
+
+The `DialogueBox` class handles communication between the player and NPCs, displaying dialogues retrieved from the `NPC_DIALOGUES` data source.
+
+The `Building` class represents different locations in the game environment, enabling interactions such as attending classes or working.
+
+The `EffectText` class provides visual feedback to the player, such as notifications about changes in game state.
+
+External elements like `SaveData`, `QUESTS`, `EXAM_BANK`, and `NPC_DIALOGUES` are modeled as data sources and are connected via dependency relationships, since they provide data rather than behavior.
+
+This design follows object-oriented principles such as separation of concerns and low coupling, ensuring that each component has a clear responsibility and can be maintained independently.
+
+The relationships between classes are primarily composition-based, with the `Game` class aggregating and managing most system components, ensuring centralized control of the simulation.
 ## 6. Process Architecture
 
 ![State Machine Diagram](state%20machine%20diagram.png)
@@ -87,10 +104,28 @@ Input Handling: When transitioning to the Interaction State, the standard moveme
 
 Time Management: The advance_time() process runs as a background service that updates the simulation clock and triggers state-dependent events like "New Day" or "Exam Results".
 
+The sequence diagram represents the interaction flow during an exam scenario in the game.
+
+The process starts when the player presses the interaction key (E). This input is captured by the main loop, which then calls the `interact()` method in the `Game` class.
+
+If the condition `exam_ready == true` is satisfied, the `Game` class initiates the exam process by calling the `start(subject)` method of the `Quiz` class.
+
+The `Quiz` class initializes the exam by selecting a set of questions from the `EXAM_BANK` data source and setting the state to "exam started".
+
+A loop structure is then executed for each question. During this loop, the player submits answers by pressing input keys (1, 2, or 3). Each input is sent to the `Quiz` class through the `answer(choice)` method, where it is processed and evaluated.
+
+After all questions are answered, the `Quiz` class calculates the final score and returns it to the `Game` class.
+
+The `Game` class then handles the result using the `handle_quiz_result(score)` method, updating player statistics such as GPA and other attributes. It also updates the UI by displaying the result through a message system.
+
+Throughout the process, the system maintains a clear control flow where the `Game` class acts as the central coordinator, ensuring that all interactions between components are properly managed.
+
+This sequence demonstrates how user input is transformed into game logic execution and state updates in a structured and modular way.
 ## 7. Development Architecture
 
 ![Component Diagram](component%20diagram.png)
 
+The component diagram visualizes how these modules are organized and interact within the system.
 The system is built using a modular component-based architecture to separate game-state management from graphical rendering.
 
 Core Module: Handles the event loop and state transitions.
@@ -99,6 +134,17 @@ Logic Module: Encapsulates the academic success formulas and student stat calcul
 
 External Dependencies: Utilizes the Pygame library for hardware abstraction (input/output) and the JSON module for data serialization.
 
+The development architecture describes how the system is organized from a software engineering perspective.
+
+The project is implemented in Python using the Pygame library. The codebase is structured into modular components, each responsible for a specific functionality such as game logic, UI rendering, and interaction handling.
+
+The main entry point of the system is the `main.py` file, which initializes the game and runs the main loop. The `Game` class serves as the core module, managing state transitions and coordinating all other components.
+
+Different classes such as `Player`, `Quiz`, `DialogueBox`, and `StoryUI` are separated into logical units to improve readability and maintainability.
+
+Version control is managed using Git and hosted on GitHub. The development process follows a feature-branch workflow, where new features are implemented in separate branches and merged via pull requests.
+
+This modular and layered structure ensures that the system is easy to extend, test, and maintain.
 ## 8. Physical Architecture
 
 ![Deployment Diagram](deployment%20diagram.png)
@@ -111,6 +157,13 @@ Storage Layer: All persistence data is handled locally via the campus_life_save.
 
 Deployment: The software is delivered as a Python-based executable or script, requiring only a compatible Python runtime and the Pygame library on the host machine.
 
+The application runs locally on a single machine and does not require any server-side components. All game logic, rendering, and data processing are executed within a single runtime environment.
+
+The system is developed using Python and the Pygame library, making it compatible with multiple operating systems such as Windows, macOS, and Linux.
+
+Game data, including exam questions, NPC dialogues, and save files, are stored locally using JSON files. This allows easy data management and persistence.
+
+This architecture ensures simplicity, portability, and ease of deployment.
 
 ## 9. Scenarios
 
