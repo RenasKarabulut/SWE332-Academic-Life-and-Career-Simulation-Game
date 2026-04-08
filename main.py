@@ -417,6 +417,7 @@ class Game:
         self.story = StoryUI()
         self.quiz = Quiz()
         self.effects = []
+        self.blocked = []
 
         self.day = 1
         self.hour = 8
@@ -472,7 +473,7 @@ class Game:
             ], (92, 180, 130), "snack"),
         ]
     def calculate_exam_result(self):
-       score = self.study_hours * 0.5 + self.intel * 0.5
+    score = self.study_hours * 0.5 + self.intel * 0.5
 
     if score >= 80:
         self.gpa += 0.3
@@ -486,7 +487,6 @@ class Game:
 
     self.study_hours = 0
     return result
-
     def study(self):
         self.study_hours += 5
         self.energy -= 5
