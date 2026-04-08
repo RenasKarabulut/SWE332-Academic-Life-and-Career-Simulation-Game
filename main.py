@@ -560,6 +560,9 @@ class Game:
             self.hour -= 24
             self.day += 1
             self.exam_ready = True
+            self.save()
+            self.dialog.set("Game auto-saved.")
+            
         if self.hour >= 23 or self.hour < 7:
             self.dialog.set("It's late. Better go home soon.")
 
