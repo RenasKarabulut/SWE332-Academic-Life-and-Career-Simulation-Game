@@ -614,6 +614,7 @@ class Game:
         self.talk_count += 1
         npc.friendship = clamp(npc.friendship + 1, 0, 100)
         self.dialog.set(npc.talk())
+        # NPC interaction handled
 
         if npc.name in NPC_DIALOGUES:
             idx = NPC_INDEX[npc.name]
