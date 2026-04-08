@@ -471,8 +471,8 @@ class Game:
                 "Did you save the game?"
             ], (92, 180, 130), "snack"),
         ]
-            def calculate_exam_result(self):
-    score = self.study_hours * 0.5 + self.intel * 0.5
+    def calculate_exam_result(self):
+       score = self.study_hours * 0.5 + self.intel * 0.5
 
     if score >= 80:
         self.gpa += 0.3
@@ -486,10 +486,11 @@ class Game:
 
     self.study_hours = 0
     return result
-        def study(self):
-    self.study_hours += 5
-    self.energy -= 5
-    self.dialog.set("You studied. +5 knowledge")
+
+    def study(self):
+        self.study_hours += 5
+        self.energy -= 5
+        self.dialog.set("You studied. +5 knowledge")
 
         self.blocked = [self.pond]
         self.blocked += [b.rect for b in self.buildings]
@@ -712,7 +713,8 @@ class Game:
                 return
 
         self.dialog.set("You have no gifts to give.")
- 	def update(self):   # ← SAME INDENT as __init__
+
+     def update(self):   # ← SAME INDENT as __init__
         keys = pygame.key.get_pressed()
         self.time_counter += 1
 
