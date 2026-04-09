@@ -417,7 +417,6 @@ class Game:
         self.story = StoryUI()
         self.quiz = Quiz()
         self.effects = []
-        self.blocked = []
 
         self.day = 1
         self.hour = 8
@@ -473,20 +472,21 @@ class Game:
             ], (92, 180, 130), "snack"),
         ]
     def calculate_exam_result(self):
-    score = self.study_hours * 0.5 + self.intel * 0.5
+       score = self.study_hours * 0.5 + self.intel * 0.5
 
-    if score >= 80:
+       if score >= 80:
         self.gpa += 0.3
         result = "Great result!"
-    elif score >= 50:
+       elif score >= 50:
         self.gpa += 0.1
         result = "Passed."
-    else:
+       else:
         self.gpa -= 0.2
         result = "Failed."
 
     self.study_hours = 0
     return result
+
     def study(self):
         self.study_hours += 5
         self.energy -= 5
@@ -714,7 +714,7 @@ class Game:
 
         self.dialog.set("You have no gifts to give.")
 
-     def update(self):   # ← SAME INDENT as __init__
+    def update(self):   # ← SAME INDENT as __init__
         keys = pygame.key.get_pressed()
         self.time_counter += 1
 
@@ -910,27 +910,26 @@ class Game:
 
         draw_text(surf, "Q to close", SMALL, BLACK, rect.centerx, rect.bottom - 24, True)
 
-   def draw(self, surf):
-    cam_x = clamp(int(self.player.x - WIDTH // 2), 0, WORLD_W * TILE - WIDTH)
-    cam_y = clamp(int(self.player.y - HEIGHT // 2), 0, WORLD_H * TILE - HEIGHT)
+    def draw(self, surf):
+        cam_x = clamp(int(self.player.x - WIDTH // 2), 0, WORLD_W * TILE - WIDTH)
+        cam_y = clamp(int(self.player.y - HEIGHT // 2), 0, WORLD_H * TILE - HEIGHT)
 
-    self.draw_world(surf, cam_x, cam_y)
-    self.draw_ui(surf)
+        self.draw_world(surf, cam_x, cam_y)
+        self.draw_ui(surf)
 
-    if self.hour >= 18 or self.hour < 6:
-        overlay = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
-        overlay.fill((20, 30, 60, 70))
-        surf.blit(overlay, (0, 0))
+        if self.hour >= 18 or self.hour < 6:
+            overlay = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
+            overlay.fill((20, 30, 60, 70))
+            surf.blit(overlay, (0, 0))
 
-    if self.quiz.active:
-        self.quiz.draw(surf)
+        if self.quiz.active:
+            self.quiz.draw(surf)
 
-    self.draw_quests_panel(surf)
-    self.draw_relationships_panel(surf)
+        self.draw_quests_panel(surf)
+        self.draw_relationships_panel(surf)
 
-    if self.story.active:
-        self.story.draw(surf)
-
+        if self.story.active:
+            self.story.draw(surf)
 
 def main():
     game = Game()
