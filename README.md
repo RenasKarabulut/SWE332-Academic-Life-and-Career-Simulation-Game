@@ -113,3 +113,13 @@ The project includes both technical development and architectural documentation 
 ## Course Requirement Note
 
 This repository is public and prepared according to the SWE332 Software Architecture Project requirements, including Markdown documentation, a public GitHub repository, and visible team contributions in git history.
+
+ ---
+
+## Gameplay Screenshots
+
+Explore the campus life, dialogue system, and academic mechanics of the game:
+
+ **Campus & Home Interface** <br> ![Campus](game%20ss%201.jpg) | **Dialogue & Character Interaction** <br> ![Dialogue](game%20ss%202.jpg) 
+
+ **Cafe & Social Areas** <br> ![Social Area](game%20ss%203.jpg) | **Examination System (Math Exam)** <br> ![Exam](game%20ss%204.jpg) 
