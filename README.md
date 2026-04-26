@@ -1,5 +1,9 @@
 # SWE332-Academic-Life-and-Career-Simulation-Game
 SWE332 Software Architecture Project - Academic Life Simulation Game
+SWE332 Academic Life and Career Simulation Game
+Project Links
+GitHub Repository: https://github.com/RenasKarabulut/SWE332-Academic-Life-and-Career-Simulation-Game
+YouTube Demo Video: https://youtu.be/s9umYmf4-rI
 
 ## Team Details
 * İlayda Acarlar – 220513350 – GitHub: [@acarlarilayda](https://github.com/acarlarilayda)
